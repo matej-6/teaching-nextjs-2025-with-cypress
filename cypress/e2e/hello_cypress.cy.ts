@@ -59,7 +59,7 @@ describe("Album Catalog - Basic Checks", () => {
     cy.get("@navbar").should("be.visible");
   });
 
-  it("has a not visible footer when scroll on top", () => {
+  it("has a not visible footer when scrolled on top", () => {
     // Arrange
     cy.visit("/");
     cy.get('[data-cy="footer"]').as("footer");
@@ -68,7 +68,7 @@ describe("Album Catalog - Basic Checks", () => {
     cy.scrollTo("top");
 
     // Assert
-    cy.get("@footer").should("be.visible");
+    cy.get("@footer").should("not.be.visible");
   });
 
   it("has a visible search button on the top", () => {
