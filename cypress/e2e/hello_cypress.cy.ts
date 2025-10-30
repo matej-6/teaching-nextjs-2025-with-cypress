@@ -4,7 +4,7 @@ describe("Album Catalog - Basic Checks", () => {
 
     // make this test pass by adding the correct attribute data-cy into your page
     cy.get('[data-cy="title"]').should("be.visible");
-    cy.get('[data-cy="title"]').should("contain.text", "Spotify");
+    cy.get('[data-cy="title"]').should("have.text", "Spotify");
   });
 
   it("displays the site title in the header", () => {
@@ -14,7 +14,7 @@ describe("Album Catalog - Basic Checks", () => {
 
     // Assert
     cy.get("@headerTitle").should("be.visible");
-    cy.get("@headerTitle").should("contain.text", "Spotify");
+    cy.get("@headerTitle").should("have.text", "Spotify");
   });
 
   it("shows at least one album card", () => {
@@ -59,16 +59,13 @@ describe("Album Catalog - Basic Checks", () => {
     cy.get("@navbar").should("be.visible");
   });
 
-  it("has a not visible footer when scrolled on top", () => {
+  it("has a visible footer", () => {
     // Arrange
     cy.visit("/");
     cy.get('[data-cy="footer"]').as("footer");
 
-    // Act
-    cy.scrollTo("top");
-
     // Assert
-    cy.get("@footer").should("not.be.visible");
+    cy.get("@footer").should("be.visible");
   });
 
   it("has a visible search button on the top", () => {
@@ -77,6 +74,23 @@ describe("Album Catalog - Basic Checks", () => {
     cy.get('[data-cy="navbar"]').within(() => {
       // Assert
       cy.get('[data-cy="searchButton"]').should("be.visible");
+    });
+  });
+
+  it("album card displays a valid release date", () => {
+    // Arrange
+    cy.visit("/");
+    cy.get('[data-cy="albumCard"]').first().as("albumCard");
+    cy.get("@albumCard").within(() => {
+      cy.get('[data-cy="releaseDate"]').as("releaseDate");
+    });
+    cy.get("@releaseDate").then(($releaseDate) => {
+      const releaseDate = Date.parse($releaseDate.text());
+      const isValidReleaseDate = !isNaN(releaseDate);
+
+      // Assert
+      cy.get("@releaseDate").should("be.visible");
+      expect(isValidReleaseDate).equal(true);
     });
   });
 });

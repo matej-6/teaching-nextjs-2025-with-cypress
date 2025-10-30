@@ -45,7 +45,10 @@ export default async function Home() {
                   </Link>
                 </p>
                 <p>
-                  Release Date: {new Date(album.release_date).toDateString()}
+                  Release Date:{" "}
+                  <span data-cy="releaseDate">
+                    {new Date(album.release_date).toDateString()}
+                  </span>
                 </p>
                 <div className="mt-6">
                   <Link

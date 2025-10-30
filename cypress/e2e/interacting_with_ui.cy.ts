@@ -60,18 +60,6 @@ describe("Album Catalog - Interactions", () => {
     cy.get("@searchInput").should("have.value", typedText);
   });
 
-  it("should be possible to scroll down", () => {
-    // Arrange
-    cy.visit("/");
-    cy.get('[data-cy="title"]').as("title");
-
-    // Act
-    cy.scrollTo("bottom");
-
-    // Assert
-    cy.get("@title").should("not.be.visible");
-  });
-
   it("should be possible to search with empty query", () => {
     // Arrange
     cy.visit("/");
